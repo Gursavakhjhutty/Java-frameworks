@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -67,5 +68,17 @@ public class MainScreenControllerr {
     @GetMapping("/about")
     public String aboutPageReturn() {
         return "about";
+    }
+    @GetMapping("/buyProduct")
+    public String buyProductReturn(@Param("productID") int productID, RedirectAttributes redirectAttributes) {
+        Product product = productService.findById(productID);
+        if (product != null && product.getInv() > 0) {
+            product.setInv(product.getInv() - 1);
+            productService.save(product);
+            redirectAttributes.addFlashAttribute("message", "Nice Purchase!");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Sorry, looks like we are all out of this product.");
+        }
+        return "redirect:/mainscreen";
     }
 }

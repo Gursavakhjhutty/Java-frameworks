@@ -19,3 +19,9 @@ For this project, you will use the Integrated Development Environment (IDE) link
 (mainscreen.html line 11) - The additional selectors attached to the CSS link was causing a error not allowing me to run the program. I am unsure why this happened. I would love a note on this if possible.
 (mainscreen.html line 52/91) - Added Null handelling as I have not added any sample inventory to the project yet
 (MainScreenController.java line 34-37) - I did some testing with the partrepo but later undid these changes.
+3. STEP E
+(mainscreen.html line 19) - changed class of the about link to make it look better
+(mainscreen.html line 89) - added a Buy Now Button
+(mainScreenControllerr line 72-83) - Created the buyProductReturn service which gets the inventory of a product, reduces the inventory by 1 then saves.
+(ProductServiceImpl.java line 69-78) - implemented buyProduct into the ProductService
+(mainscreen.html line 17) - alert for if the buy now worked or not
