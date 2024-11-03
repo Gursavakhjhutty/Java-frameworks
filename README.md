@@ -12,4 +12,10 @@ For this project, you will use the Integrated Development Environment (IDE) link
 (line 50-52) - Added a response for if their is no parts found
 (line 58) - Added a placeholder for the input field
 (line 90-92) - Added a response for if their is no products found
-
+2. Created about.html file for Requirement D of Task 1 as well as modification of controllers, and mainscreen.html
+(about.html) - Created file
+(mainscreen.html line 18-20) - Added a container that has a navigation reference to the about page
+(MainScreenController.java line 55-62) - Added Mapping for returning to the mainscreen and going to the about page
+(mainscreen.html line 11) - The additional selectors attached to the CSS link was causing a error not allowing me to run the program. I am unsure why this happened. I would love a note on this if possible.
+(mainscreen.html line 52/91) - Added Null handelling as I have not added any sample inventory to the project yet
+(MainScreenController.java line 34-37) - I did some testing with the partrepo but later undid these changes.

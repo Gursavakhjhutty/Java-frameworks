@@ -22,8 +22,8 @@ import java.util.List;
 
 @Controller
 public class MainScreenControllerr {
-   // private final PartRepository partRepository;
-   // private final ProductRepository productRepository;'
+    //private final PartRepository partRepository;
+    //private final ProductRepository productRepository;
 
     private PartService partService;
     private ProductService productService;
@@ -31,10 +31,10 @@ public class MainScreenControllerr {
     private List<Part> theParts;
     private List<Product> theProducts;
 
- /*   public MainScreenControllerr(PartRepository partRepository, ProductRepository productRepository) {
-        this.partRepository = partRepository;
-        this.productRepository = productRepository;
-    }*/
+    /*public MainScreenControllerr(PartRepository partRepository, ProductRepository productRepository) {
+     //   this.partRepository = partRepository;
+     //   this.productRepository = productRepository;
+   }*/
 
     public MainScreenControllerr(PartService partService,ProductService productService){
         this.partService=partService;
@@ -43,13 +43,29 @@ public class MainScreenControllerr {
     @GetMapping("/mainscreen")
     public String listPartsandProducts(Model theModel, @Param("partkeyword") String partkeyword, @Param("productkeyword") String productkeyword){
         //add to the sprig model
-        List<Part> partList=partService.listAll(partkeyword);
+        List<Part> partList = partService.listAll(partkeyword);
+        if (partList == null) {
+            partList = List.of(); // Use an empty list if the result is null
+        }
+        theModel.addAttribute("parts", partList);
+
         theModel.addAttribute("parts",partList);
         theModel.addAttribute("partkeyword",partkeyword);
     //    theModel.addAttribute("products",productService.findAll());
-        List<Product> productList=productService.listAll(productkeyword);
+        List<Product> productList = productService.listAll(productkeyword);
+        if (productList == null) {
+            productList = List.of(); // Use an empty list if the result is null
+        }
         theModel.addAttribute("products", productList);
         theModel.addAttribute("productkeyword",productkeyword);
         return "mainscreen";
+    }
+    @GetMapping("/")
+    public String mainscreenReturn() {
+        return "mainscreen";
+    }
+    @GetMapping("/about")
+    public String aboutPageReturn() {
+        return "about";
     }
 }
