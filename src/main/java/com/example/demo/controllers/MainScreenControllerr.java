@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.domain.InhousePart;
+import com.example.demo.domain.OutsourcedPart;
 import com.example.demo.domain.Part;
 import com.example.demo.domain.Product;
 import com.example.demo.repositories.PartRepository;
@@ -11,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
@@ -80,5 +85,48 @@ public class MainScreenControllerr {
             redirectAttributes.addFlashAttribute("message", "Sorry, looks like we are all out of this product.");
         }
         return "redirect:/mainscreen";
+    }
+    @Configuration
+    public class SampleInventoryInitializer {
+        @Bean
+        public CommandLineRunner initializeInventory(PartService partService, ProductService productService) {
+            return args -> {
+                if (partService.findAll().isEmpty() && productService.findAll().isEmpty()) {
+                    InhousePart part1;
+                    part1 = new InhousePart("Part 1", 5.0, 10);
+                    OutsourcedPart part2;
+                    part2 = new OutsourcedPart("Widget 2", 8.5, 15);
+                    InhousePart part3;
+                    part3 = new InhousePart("Gadget 3", 3.5, 20);
+                    InhousePart part4;
+                    part4 = new InhousePart("Part 4", 7.0, 12);
+                    InhousePart part5;
+                    part5 = new InhousePart("Component 5", 6.0, 25);
+
+                    partService.save(part1);
+                    partService.save(part2);
+                    partService.save(part3);
+                    partService.save(part4);
+                    partService.save(part5);
+
+                    // Sample Products
+                    Product product1 = new Product("Product First", 50.0, 5);
+                    Product product2 = new Product("Product Second", 75.0, 8);
+                    Product product3 = new Product("Product Third", 30.0, 12);
+                    Product product4 = new Product("Product Fourth", 45.0, 10);
+                    Product product5 = new Product("Product Fifth", 60.0, 7);
+
+                    productService.save(product1);
+                    productService.save(product2);
+                    productService.save(product3);
+                    productService.save(product4);
+                    productService.save(product5);
+
+                    System.out.println("Sample Inventory Initialized");
+                } else {
+                    System.out.println("Inventory Already Exists");
+                }
+            };
+        }
     }
 }

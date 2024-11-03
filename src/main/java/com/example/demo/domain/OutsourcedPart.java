@@ -17,6 +17,9 @@ String companyName;
     public OutsourcedPart() {
     }
 
+    public OutsourcedPart(String s, double v, int i) {
+    }
+
     public String getCompanyName() {
         return companyName;
     }

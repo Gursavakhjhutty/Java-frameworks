@@ -55,14 +55,21 @@ public class PartServiceImpl implements PartService{
     }
 
     @Override
-    public void save(Part thePart) {
-            partRepository.save(thePart);
-
-    }
-
-    @Override
     public void deleteById(int theId) {
         Long theIdl=(long)theId;
         partRepository.deleteById(theIdl);
     }
+
+    @Override
+    public void save(Part thePart) {
+        List<Part> existingParts = (List<Part>) partRepository.findAll();
+        for (Part part : existingParts) {
+            if (part.getName().equalsIgnoreCase(thePart.getName())) {
+                thePart.setName(thePart.getName() + " (Multi-pack)");
+                break;
+            }
+        }
+        partRepository.save(thePart);
+    }
+
 }

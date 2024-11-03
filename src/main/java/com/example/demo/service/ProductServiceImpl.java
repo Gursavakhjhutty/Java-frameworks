@@ -18,12 +18,14 @@ import java.util.Optional;
  */
 @Service
 public class ProductServiceImpl implements ProductService{
+    private final PartRepository partRepository;
     private ProductRepository productRepository;
 
     @Autowired
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, PartRepository partRepository) {
         this.productRepository = productRepository;
+        this.partRepository = partRepository;
     }
 
     @Override
@@ -50,12 +52,6 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void save(Product theProduct) {
-        productRepository.save(theProduct);
-
-    }
-
-    @Override
     public void deleteById(int theId) {
         Long theIdl=(long)theId;
         productRepository.deleteById(theIdl);
@@ -75,5 +71,17 @@ public class ProductServiceImpl implements ProductService{
         } else {
             return "Sorry, product id " + theId + " is out of stock";
         }
+    }
+
+    @Override
+    public void save(Product theProduct) {
+        List<Product> existingProducts = (List<Product>) productRepository.findAll();
+        for (Product product : existingProducts) {
+            if (product.getName().equalsIgnoreCase(theProduct.getName())) {
+                theProduct.setName(theProduct.getName() + " (Multi-pack)");
+                break;
+            }
+        }
+        productRepository.save(theProduct);
     }
 }
