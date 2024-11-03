@@ -30,4 +30,12 @@ For this project, you will use the Integrated Development Environment (IDE) link
 (ProductServiceImpl.java line 75-86) - Added a Multipack maker for products
 (PartServiceImpl.java line 62-74) - Added a Multipack Maker for Parts
 (InhousePart.Java line 20-22) - Added Constructor
-(OutsourcedPart.Java line 20-22)- Added Constructor
+(OutsourcedPart.Java line 20-22) - Added Constructor
+5. STEP G
+(Part.java line 112-127) - added getting and setting for min and max
+(MainScreenController line 95-104) - modified sample parts to comply with min and max settings
+(Part.java line 84-88) - added a exception thrown if inventory is outside of min and max values
+(AddPartController.java line 68-80) - savePart logic
+(OutsourcedPartForm.html line 26-28) - min and max inventory html requirement
+(InhousePartForm.html line 25-26) - min and max inventory html requirement
+(application.properties line 6) - changed the name of the database where the data is stored

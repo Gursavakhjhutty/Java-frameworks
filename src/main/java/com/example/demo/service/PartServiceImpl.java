@@ -64,7 +64,7 @@ public class PartServiceImpl implements PartService{
     public void save(Part thePart) {
         List<Part> existingParts = (List<Part>) partRepository.findAll();
         for (Part part : existingParts) {
-            if (part.getName().equalsIgnoreCase(thePart.getName())) {
+            if (part.getName() != null && part.getName().equalsIgnoreCase(thePart.getName())) {
                 thePart.setName(thePart.getName() + " (Multi-pack)");
                 break;
             }

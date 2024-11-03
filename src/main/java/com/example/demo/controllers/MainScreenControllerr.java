@@ -93,15 +93,15 @@ public class MainScreenControllerr {
             return args -> {
                 if (partService.findAll().isEmpty() && productService.findAll().isEmpty()) {
                     InhousePart part1;
-                    part1 = new InhousePart("Part 1", 5.0, 10);
+                    part1 = new InhousePart("Part 1", 5.0, 10, 5, 20, 123);
                     OutsourcedPart part2;
-                    part2 = new OutsourcedPart("Widget 2", 8.5, 15);
+                    part2 = new OutsourcedPart("Widget 2", 8.5, 15, 3, 30, "Samsung");
                     InhousePart part3;
-                    part3 = new InhousePart("Gadget 3", 3.5, 20);
+                    part3 = new InhousePart("Gadget 3", 3.5, 20, 10, 50, 124);
                     InhousePart part4;
-                    part4 = new InhousePart("Part 4", 7.0, 12);
+                    part4 = new InhousePart("Part 4", 7.0, 12, 2, 25, 125);
                     InhousePart part5;
-                    part5 = new InhousePart("Component 5", 6.0, 25);
+                    part5 = new InhousePart("Component 5", 6.0, 25, 8, 40, 126);
 
                     partService.save(part1);
                     partService.save(part2);

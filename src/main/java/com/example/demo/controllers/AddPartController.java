@@ -65,4 +65,17 @@ public class AddPartController {
         }
     }
 
+    @PostMapping("/savePart")
+    public String savePart(@Valid @ModelAttribute("part") Part part, BindingResult bindingResult, Model model) {
+        // Validate inventory against min and max values
+        if (part.getInv() < part.getMin() || part.getInv() > part.getMax()) {
+            model.addAttribute("message", "Inventory must be between min (" + part.getMin() + ") and max (" + part.getMax() + ") values.");
+            return part instanceof InhousePart ? "InhousePartForm" : "OutsourcedPartForm"; // Return to the correct form
+        }
+
+        // Save the part if validation passes
+        PartService partService = context.getBean(PartService.class);
+        partService.save(part);
+        return "redirect:/mainscreen"; // Redirect after saving
+    }
 }

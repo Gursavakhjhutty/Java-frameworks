@@ -22,6 +22,8 @@
     <p th:if="${#fields.hasErrors('inv')}" th:errors="*{inv}">Inventory Error</p>
 
     <p><input type="text" th:field="*{partId}" placeholder="Part ID" class="form-control mb-4 col-4"/></p>
+    <p><input type="number" name="min" placeholder="Min Inventory" required></p>
+    <p><input type="number" name="max" placeholder="Max Inventory" required></p>
 
 <p><input type="submit" value="Submit" /></p>
 </form>
