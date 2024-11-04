@@ -24,28 +24,28 @@ import java.util.List;
 @Controller
 public class AddPartController {
     @Autowired
-    private ApplicationContext context;
+    private PartService partService;
+    @Autowired
+    private OutsourcedPartService outsourcedPartService;
+    @Autowired
+    private InhousePartService inhousePartService;
 
     @GetMapping("/showPartFormForUpdate")
     public String showPartFormForUpdate(@RequestParam("partID") int theId,Model theModel){
 
-        PartService repo=context.getBean(PartServiceImpl.class);
-        OutsourcedPartService outsourcedrepo=context.getBean(OutsourcedPartServiceImpl.class);
-        InhousePartService inhouserepo=context.getBean(InhousePartServiceImpl.class);
-
         boolean inhouse=true;
-        List<OutsourcedPart> outsourcedParts=outsourcedrepo.findAll();
+        List<OutsourcedPart> outsourcedParts=outsourcedPartService.findAll();
         for(OutsourcedPart outsourcedPart:outsourcedParts) {
             if(outsourcedPart.getId()==theId)inhouse=false;
         }
         String formtype;
         if(inhouse){
-            InhousePart inhousePart=inhouserepo.findById(theId);
+            InhousePart inhousePart=inhousePartService.findById(theId);
             theModel.addAttribute("inhousepart",inhousePart);
             formtype="InhousePartForm";
         }
         else{
-            OutsourcedPart outsourcedPart=outsourcedrepo.findById(theId);
+            OutsourcedPart outsourcedPart=outsourcedPartService.findById(theId);
             theModel.addAttribute("outsourcedpart",outsourcedPart);
             formtype="OutsourcedPartForm";
         }
@@ -54,10 +54,9 @@ public class AddPartController {
 
     @GetMapping("/deletepart")
     public String deletePart(@Valid @RequestParam("partID") int theId,  Model theModel){
-        PartService repo = context.getBean(PartServiceImpl.class);
-        Part part=repo.findById(theId);
+        Part part= partService.findById(theId);
         if(part.getProducts().isEmpty()){
-            repo.deleteById(theId);
+            partService.deleteById(theId);
             return "confirmationdeletepart";
         }
         else{
@@ -74,8 +73,17 @@ public class AddPartController {
         }
 
         // Save the part if validation passes
-        PartService partService = context.getBean(PartService.class);
         partService.save(part);
         return "redirect:/mainscreen"; // Redirect after saving
+    }
+    @PostMapping("/addPart")
+    public String addPart(@ModelAttribute Part part, Model model) {
+        try {
+            partService.save(part);
+            return "redirect:/parts";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errormessage", e.getMessage());
+            return "addPart";
+        }
     }
 }

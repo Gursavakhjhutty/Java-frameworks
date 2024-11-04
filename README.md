@@ -39,3 +39,8 @@ For this project, you will use the Integrated Development Environment (IDE) link
 (OutsourcedPartForm.html line 26-28) - min and max inventory html requirement
 (InhousePartForm.html line 25-26) - min and max inventory html requirement
 (application.properties line 6) - changed the name of the database where the data is stored
+6. STEP H
+(PartServiceImpl.java line 74-86) Method to throw errors for min and max validation
+(AddPartController.java line 81-90) Added controller Class that manages the logic
+(InhousePartForm.html line 11-13) Added error on html
+7. 

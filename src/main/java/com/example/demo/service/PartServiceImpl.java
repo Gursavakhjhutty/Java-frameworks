@@ -62,6 +62,10 @@ public class PartServiceImpl implements PartService{
 
     @Override
     public void save(Part thePart) {
+        try {
+            validatePart(thePart);
+            partRepository.save(thePart);
+        } catch (IllegalArgumentException e) {System.out.println(e.getMessage());}
         List<Part> existingParts = (List<Part>) partRepository.findAll();
         for (Part part : existingParts) {
             if (part.getName() != null && part.getName().equalsIgnoreCase(thePart.getName())) {
@@ -71,5 +75,18 @@ public class PartServiceImpl implements PartService{
         }
         partRepository.save(thePart);
     }
+
+    public void validatePart(Part part) throws IllegalArgumentException {
+        if (part.getInv() < part.getMin()) {
+            throw new IllegalArgumentException("Error: Inventory cannot be less than the minimum allowed.");
+        }
+        if (part.getInv() > part.getMax()) {
+            throw new IllegalArgumentException("Error: Inventory cannot be greater than the maximum allowed.");
+        }
+        if (part.getMin() > part.getMax()) {
+            throw new IllegalArgumentException("Error: Minimum cannot be greater than maximum.");
+        }
+    }
+
 
 }

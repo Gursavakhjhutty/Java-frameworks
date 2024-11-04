@@ -75,6 +75,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void save(Product theProduct) {
+        try {
+            validateProduct(theProduct);
+            productRepository.save(theProduct);
+        } catch (IllegalArgumentException e) {System.out.println(e.getMessage());}
         List<Product> existingProducts = (List<Product>) productRepository.findAll();
         for (Product product : existingProducts) {
             if (product.getName().equalsIgnoreCase(theProduct.getName())) {
@@ -84,4 +88,13 @@ public class ProductServiceImpl implements ProductService{
         }
         productRepository.save(theProduct);
     }
+
+    public void validateProduct(Product product) throws IllegalArgumentException {
+        for (Part part : product.getParts()) {
+            if (part.getInv() < part.getMin()) {
+                throw new IllegalArgumentException("Error: Adding this product lowers the part inventory below the minimum allowed.");
+            }
+        }
+    }
+
 }
