@@ -43,4 +43,6 @@ For this project, you will use the Integrated Development Environment (IDE) link
 (PartServiceImpl.java line 74-86) Method to throw errors for min and max validation
 (AddPartController.java line 81-90) Added controller Class that manages the logic
 (InhousePartForm.html line 11-13) Added error on html
-7. 
+7. STEP I
+(PartTest.java lin 160-199) Added tests for min and max
+8. 

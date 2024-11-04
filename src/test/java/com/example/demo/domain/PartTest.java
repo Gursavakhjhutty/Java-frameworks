@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Project: demoDarbyFrameworks2-master
@@ -155,5 +156,45 @@ class PartTest {
         partIn.setId(1l);
         partOut.setId(1l);
         assertEquals(partIn.hashCode(),partOut.hashCode());
+    }
+    @Test
+    public void testInvBelowMin() {
+        partIn.setMin(5);
+        partIn.setInv(3); // Below the min
+        boolean isBelowMin = partIn.getInv() < partIn.getMin();
+        assertTrue(isBelowMin, "Inventory should be flagged as below the minimum.");
+
+        partOut.setMin(5);
+        partOut.setInv(3); // Below the min
+        boolean isOutBelowMin = partOut.getInv() < partOut.getMin();
+        assertTrue(isOutBelowMin, "Inventory should be flagged as below the minimum.");
+    }
+
+    @Test
+    public void testInvAboveMax() {
+        partIn.setMax(10);
+        partIn.setInv(15); // Above the max
+        boolean isAboveMax = partIn.getInv() > partIn.getMax();
+        assertTrue(isAboveMax, "Inventory should be flagged as above the maximum.");
+
+        partOut.setMax(10);
+        partOut.setInv(15); // Above the max
+        boolean isOutAboveMax = partOut.getInv() > partOut.getMax();
+        assertTrue(isOutAboveMax, "Inventory should be flagged as above the maximum.");
+    }
+
+    @Test
+    public void testInvInRange() {
+        partIn.setMin(5);
+        partIn.setMax(20);
+        partIn.setInv(10); // Within the range
+        boolean isInRange = partIn.getInv() >= partIn.getMin() && partIn.getInv() <= partIn.getMax();
+        assertTrue(isInRange, "Inventory should be within the valid range.");
+
+        partOut.setMin(5);
+        partOut.setMax(20);
+        partOut.setInv(10); // Within the range
+        boolean isOutInRange = partOut.getInv() >= partOut.getMin() && partOut.getInv() <= partOut.getMax();
+        assertTrue(isOutInRange, "Inventory should be within the valid range.");
     }
 }
