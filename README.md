@@ -45,4 +45,5 @@ For this project, you will use the Integrated Development Environment (IDE) link
 (InhousePartForm.html line 11-13) Added error on html
 7. STEP I
 (PartTest.java lin 160-199) Added tests for min and max
-8. 
+8. STEP J
+Removed DeletePartValidator as it was the only unused validator
