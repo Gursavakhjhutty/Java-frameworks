@@ -1,5 +1,4 @@
-# WESTERN GOVERNORS UNIVERSITY 
-## D287 – JAVA FRAMEWORKS
+# JAVA FRAMEWORKS
 For this Course I will be making a Shop Inventory Management System for BlockHive, a Crypto Tech Solutions Company. 
 ## BASIC INSTRUCTIONS
 -compile and build the frontend using npx
