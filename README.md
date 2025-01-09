@@ -2,12 +2,9 @@
 ## D287 – JAVA FRAMEWORKS
 For this Course I will be making a Shop Inventory Management System for BlockHive, a Crypto Tech Solutions Company. 
 ## BASIC INSTRUCTIONS
-'''
 -compile and build the frontend using npx
 -run the application in the backend
 -access the webpage at your localhost:4200
-'''
-
 
 ## Modifications To Existing Files
 1. Changes to the mainscreen.html file for Requirment C of Task 1
